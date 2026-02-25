@@ -10,7 +10,7 @@ import { ChatInput } from './ChatInput';
 export function ChatWindow() {
   const { document, setSubmitPromptToChat } = useAppContext();
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
     api: '/api/chat',
     body: { documentContext: document.content ?? '' },
   });
@@ -52,7 +52,7 @@ export function ChatWindow() {
       </div>
 
       {/* Messages */}
-      <MessageList messages={messages} isLoading={isLoading} />
+      <MessageList messages={messages} isLoading={isLoading} error={error} />
 
       {/* Input */}
       <ChatInput
