@@ -8,7 +8,7 @@ import { ChatWindow } from '@/components/chat/ChatWindow';
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden" style={{ backgroundColor: '#011E41' }}>
+    <div className="flex flex-col h-screen w-screen overflow-hidden" style={{ backgroundColor: '#F5F7FA' }}>
       <TopNav />
       <main className="flex flex-1 overflow-hidden">
         <motion.div

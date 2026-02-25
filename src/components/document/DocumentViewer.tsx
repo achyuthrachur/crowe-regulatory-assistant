@@ -18,7 +18,7 @@ export function DocumentViewer() {
   return (
     <div
       className="flex-1 h-[calc(100vh-3.5rem)] overflow-hidden relative"
-      style={{ backgroundColor: '#012348', borderRight: '1px solid rgba(255,255,255,0.08)' }}
+      style={{ backgroundColor: '#F8F9FA', borderRight: '1px solid #E0E0E0' }}
     >
       <AnimatePresence mode="wait">
         {!isLoaded ? (
@@ -43,11 +43,16 @@ export function DocumentViewer() {
             {/* Header */}
             <div
               className="h-12 flex items-center justify-between px-5 flex-shrink-0"
-              style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+              style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E0E0E0' }}
             >
               <div className="flex items-center overflow-hidden">
                 <FileText className="w-4 h-4 text-[#F5A800] flex-shrink-0" />
-                <span className="text-sm text-white font-medium ml-2 truncate">{truncatedFilename}</span>
+                <span
+                  className="text-sm font-medium ml-2 truncate"
+                  style={{ color: '#011E41' }}
+                >
+                  {truncatedFilename}
+                </span>
               </div>
               <div className="flex items-center gap-3 flex-shrink-0 ml-3">
                 {document.pageCount && (
@@ -55,7 +60,10 @@ export function DocumentViewer() {
                 )}
                 <button
                   onClick={clearDocument}
-                  className="text-[#828282] hover:text-white transition-colors cursor-pointer"
+                  className="transition-colors cursor-pointer"
+                  style={{ color: '#BDBDBD' }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#011E41')}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#BDBDBD')}
                   aria-label="Clear document"
                 >
                   <X className="w-4 h-4" />
@@ -68,17 +76,18 @@ export function DocumentViewer() {
               className="absolute left-0 right-0 h-6 pointer-events-none z-10"
               style={{
                 top: '3rem',
-                background: 'linear-gradient(to bottom, #012348, transparent)',
+                background: 'linear-gradient(to bottom, #F8F9FA, transparent)',
               }}
             />
 
             {/* Document content */}
-            <div
-              className="flex-1 overflow-y-auto px-6 py-5 doc-scroll"
-            >
+            <div className="flex-1 overflow-y-auto px-6 py-5 doc-scroll">
               <div
-                className="text-[13px] text-[#E0E0E0] leading-relaxed whitespace-pre-wrap"
-                style={{ fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+                className="text-[13px] leading-relaxed whitespace-pre-wrap"
+                style={{
+                  color: '#333333',
+                  fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                }}
               >
                 {document.content}
               </div>

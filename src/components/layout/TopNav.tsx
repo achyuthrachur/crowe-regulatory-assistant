@@ -24,25 +24,26 @@ export function TopNav() {
     <nav
       className="w-full h-14 flex items-center justify-between px-6 flex-shrink-0 z-50"
       style={{
-        backgroundColor: '#011E41',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        backgroundColor: '#FFFFFF',
+        borderBottom: '1px solid #E0E0E0',
       }}
     >
       {/* Left: Branding */}
       <div className="flex items-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/crowe-logo-white.svg"
+          src="/crowe-logo-color.svg"
           alt="Crowe"
           className="h-7 w-auto"
         />
         <div
           className="mx-4"
-          style={{ width: '1px', height: '1.25rem', backgroundColor: 'rgba(255,255,255,0.2)' }}
+          style={{ width: '1px', height: '1.25rem', backgroundColor: '#E0E0E0' }}
         />
         <span
-          className="text-sm text-white tracking-wide"
+          className="text-sm tracking-wide"
           style={{
+            color: '#011E41',
             fontFamily: "'Helvetica Now Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: 700,
           }}
@@ -57,9 +58,9 @@ export function TopNav() {
         <Badge
           className="text-xs"
           style={{
-            backgroundColor: 'rgba(245,168,0,0.12)',
-            border: '1px solid rgba(245,168,0,0.3)',
-            color: '#F5A800',
+            backgroundColor: 'rgba(245,168,0,0.1)',
+            border: '1px solid rgba(245,168,0,0.35)',
+            color: '#D7761D',
             fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           }}
         >
@@ -75,11 +76,14 @@ export function TopNav() {
               transition={{ duration: 2, repeat: 3, ease: 'easeInOut' }}
             />
           ) : (
-            <span className="w-2 h-2 rounded-full bg-[#828282] inline-block" />
+            <span className="w-2 h-2 rounded-full bg-[#BDBDBD] inline-block" />
           )}
           <span
-            className={`text-xs ${isDocLoaded ? 'text-[#E0E0E0]' : 'text-[#828282]'}`}
-            style={{ fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+            className="text-xs"
+            style={{
+              color: isDocLoaded ? '#4F4F4F' : '#BDBDBD',
+              fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            }}
           >
             {isDocLoaded ? truncatedFilename : 'No document loaded'}
           </span>
@@ -90,8 +94,11 @@ export function TopNav() {
           variant="ghost"
           size="sm"
           onClick={handleReset}
-          className="text-xs text-[#828282] hover:text-white hover:bg-white/5 cursor-pointer"
-          style={{ fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+          className="text-xs cursor-pointer"
+          style={{
+            color: '#828282',
+            fontFamily: "'Helvetica Now Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          }}
         >
           <RotateCcw className="w-4 h-4 mr-1" />
           Reset

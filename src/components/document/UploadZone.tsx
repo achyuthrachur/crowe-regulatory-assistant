@@ -62,8 +62,9 @@ export function UploadZone() {
       <div
         className="w-full rounded-xl border-2 border-dashed p-10 flex flex-col items-center gap-4 transition-all duration-150 cursor-pointer"
         style={{
-          borderColor: isDragOver ? 'rgba(245,168,0,0.5)' : 'rgba(255,255,255,0.15)',
-          backgroundColor: isDragOver ? 'rgba(245,168,0,0.03)' : 'transparent',
+          borderColor: isDragOver ? '#F5A800' : '#D0D5DD',
+          backgroundColor: isDragOver ? 'rgba(245,168,0,0.04)' : '#FFFFFF',
+          boxShadow: isDragOver ? '0 0 0 4px rgba(245,168,0,0.08)' : 'none',
         }}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -73,8 +74,12 @@ export function UploadZone() {
         <FileUp className="w-10 h-10 text-[#F5A800]" />
         <div className="flex flex-col items-center gap-1">
           <p
-            className="text-base text-white text-center"
-            style={{ fontFamily: "'Helvetica Now Display', 'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 700 }}
+            className="text-base text-center"
+            style={{
+              color: '#011E41',
+              fontFamily: "'Helvetica Now Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              fontWeight: 700,
+            }}
           >
             {isLoading ? 'Processing document...' : 'Upload Exam Document'}
           </p>
@@ -96,7 +101,7 @@ export function UploadZone() {
         >
           {isLoading ? 'Processing...' : 'Choose File'}
         </Button>
-        <p className="text-[11px] text-[#4F4F4F]">or drag and drop</p>
+        <p className="text-[11px] text-[#BDBDBD]">or drag and drop</p>
         <input
           ref={inputRef}
           type="file"
@@ -107,13 +112,16 @@ export function UploadZone() {
       </div>
 
       {error && (
-        <p className="mt-3 text-xs text-red-400 text-center">{error}</p>
+        <p className="mt-3 text-xs text-red-500 text-center">{error}</p>
       )}
 
       <div className="mt-6 flex flex-col items-center gap-1">
-        <p className="text-xs text-[#4F4F4F]">Demo document preloaded</p>
+        <p className="text-xs text-[#BDBDBD]">Demo document preloaded</p>
         <button
-          className="text-xs text-[#F5A800] underline cursor-pointer hover:text-[#FFD231] transition-colors"
+          className="text-xs underline cursor-pointer transition-colors"
+          style={{ color: '#D7761D' }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#F5A800')}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#D7761D')}
           onClick={loadSyntheticMRA}
         >
           Load synthetic MRA document
