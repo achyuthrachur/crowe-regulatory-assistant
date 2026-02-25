@@ -38,5 +38,11 @@ export async function POST(req: Request) {
     temperature: 0.3,
   });
 
-  return result.toDataStreamResponse();
+  return result.toDataStreamResponse({
+    getErrorMessage: (error: unknown) => {
+      console.error('[/api/chat] streamText error:', error);
+      if (error instanceof Error) return error.message;
+      return String(error);
+    },
+  });
 }
