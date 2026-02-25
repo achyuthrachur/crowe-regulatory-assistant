@@ -31,65 +31,56 @@ export default function Home() {
           <PromptSidebar />
         </motion.div>
 
-        {/* Document panel — flex-1 wrapper stays fixed so chat never moves */}
-        <motion.div
-          className="flex-1 overflow-hidden"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: 'easeOut', delay: 0.08 }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {(!hasDoc || docPreviewOpen) ? (
-              <motion.div
-                key="doc-open"
-                className="h-full"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
+        {/* Document panel — flex-1 when open, thin strip when collapsed */}
+        <AnimatePresence mode="wait" initial={false}>
+          {(!hasDoc || docPreviewOpen) ? (
+            <motion.div
+              key="doc-open"
+              className="flex-1 overflow-hidden"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              <DocumentViewer
+                onCollapse={hasDoc ? () => setDocPreviewOpen(false) : undefined}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="doc-closed"
+              className="flex-shrink-0 h-full flex flex-col items-center pt-3"
+              style={{ width: 44, borderRight: '1px solid #E0E0E0', backgroundColor: '#FFFFFF' }}
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: 44 }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              <button
+                onClick={() => setDocPreviewOpen(true)}
+                title={document.filename ?? 'Show document preview'}
+                className="flex flex-col items-center gap-1.5 p-2 rounded cursor-pointer transition-colors"
+                style={{ color: '#BDBDBD' }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#011E41')}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#BDBDBD')}
+                aria-label="Show document preview"
               >
-                <DocumentViewer
-                  onCollapse={hasDoc ? () => setDocPreviewOpen(false) : undefined}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="doc-closed"
-                className="h-full flex"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                {/* Thin collapsed strip with reopen button */}
-                <div
-                  className="w-11 h-full flex flex-col items-center pt-3 flex-shrink-0"
-                  style={{ borderRight: '1px solid #E0E0E0', backgroundColor: '#FFFFFF' }}
-                >
-                  <button
-                    onClick={() => setDocPreviewOpen(true)}
-                    title={document.filename ?? 'Show document preview'}
-                    className="flex flex-col items-center gap-1.5 p-2 rounded cursor-pointer transition-colors"
-                    style={{ color: '#BDBDBD' }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#011E41')}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#BDBDBD')}
-                    aria-label="Show document preview"
-                  >
-                    <FileText className="w-4 h-4" />
-                    <ChevronRight className="w-3 h-3" />
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+                <FileText className="w-4 h-4" />
+                <ChevronRight className="w-3 h-3" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
+        {/* Chat panel — grows to fill space when doc panel is collapsed */}
         <motion.div
+          layout
+          className={hasDoc && !docPreviewOpen ? 'flex-1 overflow-hidden' : 'flex-shrink-0'}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: 'easeOut', delay: 0.16 }}
+          transition={{ duration: 0.35, ease: 'easeOut', delay: 0.16, layout: { duration: 0.25, ease: 'easeInOut' } }}
         >
-          <ChatWindow />
+          <ChatWindow expanded={hasDoc && !docPreviewOpen} />
         </motion.div>
       </main>
     </div>

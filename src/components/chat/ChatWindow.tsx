@@ -7,7 +7,11 @@ import { useAppContext } from '@/lib/context/AppContext';
 import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
 
-export function ChatWindow() {
+interface ChatWindowProps {
+  expanded?: boolean;
+}
+
+export function ChatWindow({ expanded = false }: ChatWindowProps) {
   const { document, setSubmitPromptToChat } = useAppContext();
 
   const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
@@ -29,7 +33,7 @@ export function ChatWindow() {
 
   return (
     <div
-      className="w-[440px] h-[calc(100vh-3.5rem)] flex flex-col flex-shrink-0"
+      className={`${expanded ? 'w-full' : 'w-[440px]'} h-[calc(100vh-3.5rem)] flex flex-col flex-shrink-0`}
       style={{ backgroundColor: '#FFFFFF' }}
     >
       {/* Header */}
