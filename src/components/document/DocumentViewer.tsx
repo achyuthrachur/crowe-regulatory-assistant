@@ -1,11 +1,15 @@
 'use client';
 
-import { FileText, X } from 'lucide-react';
+import { FileText, X, PanelLeftClose } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAppContext } from '@/lib/context/AppContext';
 import { UploadZone } from './UploadZone';
 
-export function DocumentViewer() {
+interface DocumentViewerProps {
+  onCollapse?: () => void;
+}
+
+export function DocumentViewer({ onCollapse }: DocumentViewerProps) {
   const { document, clearDocument } = useAppContext();
   const isLoaded = !!document.content;
 
@@ -57,6 +61,18 @@ export function DocumentViewer() {
               <div className="flex items-center gap-3 flex-shrink-0 ml-3">
                 {document.pageCount && (
                   <span className="text-xs text-[#828282]">{document.pageCount} pages</span>
+                )}
+                {onCollapse && (
+                  <button
+                    onClick={onCollapse}
+                    className="transition-colors cursor-pointer"
+                    style={{ color: '#BDBDBD' }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#011E41')}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#BDBDBD')}
+                    aria-label="Hide document preview"
+                  >
+                    <PanelLeftClose className="w-4 h-4" />
+                  </button>
                 )}
                 <button
                   onClick={clearDocument}
